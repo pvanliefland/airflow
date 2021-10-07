@@ -125,3 +125,31 @@ class TestMigrateDatabaseJob:
             "name": "test-container",
             "image": "test-registry/test-repo:test-tag",
         } == jmespath.search("spec.template.spec.containers[-1]", docs[0])
+
+    def test_should_add_extra_volumes(self):
+        docs = render_chart(
+            values={
+                "migrateDatabaseJob": {
+                    "extraVolumes": [{"name": "myvolume", "emptyDir": {}}],
+                },
+            },
+            show_only=["templates/jobs/migrate-database-job.yaml"],
+        )
+
+        assert {"name": "myvolume", "emptyDir": {}} == jmespath.search(
+            "spec.template.spec.volumes[-1]", docs[0]
+        )
+
+    def test_should_add_extra_volume_mounts(self):
+        docs = render_chart(
+            values={
+                "migrateDatabaseJob": {
+                    "extraVolumeMounts": [{"name": "foobar", "mountPath": "foo/bar"}],
+                },
+            },
+            show_only=["templates/jobs/migrate-database-job.yaml"],
+        )
+
+        assert {"name": "foobar", "mountPath": "foo/bar"} == jmespath.search(
+            "spec.template.spec.containers[0].volumeMounts[-1]", docs[0]
+        )

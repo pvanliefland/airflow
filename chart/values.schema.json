@@ -1672,6 +1672,21 @@
                         }
                     }
                 },
+                "extraContainers": {
+                    "description": "Launch additional containers for the create user job pod",
+                    "type": "array",
+                    "default": []
+                },
+                "extraVolumes": {
+                    "description": "Mount additional volumes into create user job",
+                    "type": "array",
+                    "default": []
+                },
+                "extraVolumeMounts": {
+                    "description": "Mount additional volumes into create user job",
+                    "type": "array",
+                    "default": []
+                },
                 "nodeSelector": {
                     "description": "Select certain nodes for the create user job pod.",
                     "type": "object",
@@ -1734,6 +1749,16 @@
                 },
                 "extraContainers": {
                     "description": "Launch additional containers for the migrate database job pod",
+                    "type": "array",
+                    "default": []
+                },
+                "extraVolumes": {
+                    "description": "Mount additional volumes into migrate database job",
+                    "type": "array",
+                    "default": []
+                },
+                "extraVolumeMounts": {
+                    "description": "Mount additional volumes into migrate database job",
                     "type": "array",
                     "default": []
                 },
